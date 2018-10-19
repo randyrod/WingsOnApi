@@ -2,7 +2,7 @@
 
 namespace WingsOn.Services
 {
-    public class RepositoryContext
+    public class WingsOnDbContext
     {
         public AirlineRepository AirlineRepository;
         public AirportRepository AirportRepository;
@@ -10,7 +10,7 @@ namespace WingsOn.Services
         public FlightRepository FlightRepository;
         public PersonRepository PersonRepository;
 
-        public RepositoryContext()
+        public WingsOnDbContext()
         {
             AirportRepository = new AirportRepository();
             AirportRepository = new AirportRepository();

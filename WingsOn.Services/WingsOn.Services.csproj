@@ -41,6 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WingsOn.Dal\WingsOn.Dal.csproj">
+      <Project>{2B68B6A5-72F1-4DD8-849C-B0A7365A0480}</Project>
+      <Name>WingsOn.Dal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

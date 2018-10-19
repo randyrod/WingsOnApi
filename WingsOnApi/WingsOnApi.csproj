@@ -285,6 +285,10 @@
       <Project>{f1792ed2-360f-4864-8a3d-3faae3e9fc4b}</Project>
       <Name>WingsOn.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WingsOn.Services\WingsOn.Services.csproj">
+      <Project>{55b1c580-87f3-4401-8c82-c529f30830f2}</Project>
+      <Name>WingsOn.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

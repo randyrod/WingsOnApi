@@ -4,8 +4,9 @@
 namespace WingsOnApi.App_Start
 {
     using System;
+    using System.Collections.Generic;
     using System.Web;
-
+    using System.Web.Http.Dependencies;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -62,5 +63,34 @@ namespace WingsOnApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
         }        
+    }
+
+    public class NinjectHttpDependencyResolver : IDependencyResolver, IDependencyScope
+    {
+        private readonly IKernel _kernel;
+
+        public NinjectHttpDependencyResolver(IKernel kernel)
+        {
+            _kernel = kernel;
+        }
+        public IDependencyScope BeginScope()
+        {
+            return this;
+        }
+
+        public void Dispose()
+        {
+            //Do Nothing
+        }
+
+        public object GetService(Type serviceType)
+        {
+            return _kernel.TryGet(serviceType);
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            return _kernel.GetAll(serviceType);
+        }
     }
 }

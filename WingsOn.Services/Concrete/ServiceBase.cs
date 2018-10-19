@@ -2,6 +2,6 @@
 {
     public class ServiceBase
     {
-        protected RepositoryContext RepositoryContext;
+        protected WingsOnDbContext WingsOnDbContext;
     }
 }

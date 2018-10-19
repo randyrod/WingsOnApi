@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http.Formatting;
 using System.Web.Http;
+using WingsOn.Services.Abstract;
 
 namespace WingsOnApi.Controllers
 {
     public class PersonController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private readonly IPersonService _personService;
+
+        public PersonController(IPersonService personService)
         {
-            return new string[] { "value1", "value2" };
+            _personService = personService;
+        }
+
+        // GET api/<controller>
+        public IHttpActionResult Get()
+        {
+            return Content(HttpStatusCode.OK, _personService.GetAll(), new JsonMediaTypeFormatter());
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            return Content(HttpStatusCode.OK, _personService.Get(id), new JsonMediaTypeFormatter());
         }
 
         // POST api/<controller>

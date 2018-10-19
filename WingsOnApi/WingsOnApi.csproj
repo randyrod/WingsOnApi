@@ -276,6 +276,16 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WingsOn.Dal\WingsOn.Dal.csproj">
+      <Project>{2b68b6a5-72f1-4dd8-849c-b0a7365a0480}</Project>
+      <Name>WingsOn.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WingsOn.Domain\WingsOn.Domain.csproj">
+      <Project>{f1792ed2-360f-4864-8a3d-3faae3e9fc4b}</Project>
+      <Name>WingsOn.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -12,6 +12,8 @@ namespace WingsOnApi.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
+    using WingsOn.Services.Abstract;
+    using WingsOn.Services.Concrete;
 
     public static class NinjectWebCommon 
     {
@@ -62,6 +64,7 @@ namespace WingsOnApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IPersonService>().To<PersonService>();
         }        
     }
 

@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Routing;
 using WingsOn.Domain;
 using WingsOn.Services.Abstract;
 
@@ -52,6 +51,19 @@ namespace WingsOnApi.Controllers
         public IHttpActionResult GetPassengersInFlight(string flightNumber)
         {
             return Content(HttpStatusCode.OK, _bookingService.GetPassengersInFlight(flightNumber),
+                new JsonMediaTypeFormatter());
+        }
+
+        /// <summary>
+        /// Get passengers in a flight
+        /// </summary>
+        /// <param name="flightNumber">Number of flight</param>
+        /// <returns>List of passengers</returns>
+        [ResponseType(typeof(int))]
+        [Route("getpassengerscountinflight/{flightNumber}")]
+        public IHttpActionResult GetPassengerCountInFlight(string flightNumber)
+        {
+            return Content(HttpStatusCode.OK, _bookingService.GetPassengersCountInFlight(flightNumber),
                 new JsonMediaTypeFormatter());
         }
         // POST api/<controller>

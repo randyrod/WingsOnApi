@@ -27,5 +27,10 @@ namespace WingsOn.Services.Concrete
 
             return passengers;
         }
+
+        public int GetPassengersCountInFlight(string flightNumber)
+        {
+            return GetPassengersInFlight(flightNumber).Count();
+        }
     }
 }

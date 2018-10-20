@@ -65,6 +65,7 @@ namespace WingsOnApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IPersonService>().To<PersonService>();
+            kernel.Bind<IBookingService>().To<BookingService>();
         }        
     }
 

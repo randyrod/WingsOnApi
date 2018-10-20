@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WingsOn.Domain;
 using WingsOn.Services.Abstract;
@@ -25,7 +26,7 @@ namespace WingsOnApi.Tests.Controllers
             var getAllResponse = controller.Get();
             
             Assert.IsNotNull(getAllResponse);
-            Assert.IsInstanceOfType(getAllResponse, typeof(IEnumerable<Booking>));
+            Assert.IsInstanceOfType(getAllResponse, typeof(FormattedContentResult<IEnumerable<Booking>>));
         }
         
         [TestMethod]
@@ -36,7 +37,7 @@ namespace WingsOnApi.Tests.Controllers
             var getAllResponse = controller.Get(83);
             
             Assert.IsNotNull(getAllResponse);
-            Assert.IsInstanceOfType(getAllResponse, typeof(Booking));
+            Assert.IsInstanceOfType(getAllResponse, typeof(FormattedContentResult<Booking>));
         }
 
         [TestMethod]
@@ -47,7 +48,7 @@ namespace WingsOnApi.Tests.Controllers
             var passengersInFlight = controller.GetPassengersInFlight("PZ696");
             
             Assert.IsNotNull(passengersInFlight);
-            Assert.IsInstanceOfType(passengersInFlight, typeof(IEnumerable<Person>));
+            Assert.IsInstanceOfType(passengersInFlight, typeof(FormattedContentResult<IEnumerable<Person>>));
         }
         
     }

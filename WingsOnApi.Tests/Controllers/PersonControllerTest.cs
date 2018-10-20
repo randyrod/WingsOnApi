@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WingsOn.Domain;
 using WingsOn.Services.Abstract;
@@ -23,12 +24,12 @@ namespace WingsOnApi.Tests.Controllers
             var controller = new PersonController(_personService);
 
             var getResponse = controller.Get(91);
-            
-            Assert.IsNotNull(getResponse);
-            
-            Assert.IsInstanceOfType(getResponse, typeof(Person));
-        }
 
+            Assert.IsNotNull(getResponse);
+            Assert.IsInstanceOfType(getResponse, typeof(FormattedContentResult<Person>));
+   
+        }
+        
         [TestMethod]
         public void GetAll()
         {
@@ -37,7 +38,7 @@ namespace WingsOnApi.Tests.Controllers
             var getAllResponse = controller.Get();
             
             Assert.IsNotNull(getAllResponse);
-            Assert.IsInstanceOfType(getAllResponse, typeof(IEnumerable<Person>));
+            Assert.IsInstanceOfType(getAllResponse, typeof(FormattedContentResult<IEnumerable<Person>>));
         }
 
         [TestMethod]
@@ -48,7 +49,7 @@ namespace WingsOnApi.Tests.Controllers
             var maleResponse = controller.GetAllMale();
             
             Assert.IsNotNull(maleResponse);
-            Assert.IsInstanceOfType(maleResponse, typeof(IEnumerable<Person>));
+            Assert.IsInstanceOfType(maleResponse, typeof(FormattedContentResult<IEnumerable<Person>>));
         }
     }
 }

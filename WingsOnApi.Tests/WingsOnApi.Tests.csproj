@@ -101,6 +101,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BookingsControllerTest.cs" />
+    <Compile Include="Controllers\PersonControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
@@ -113,6 +115,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WingsOn.Domain\WingsOn.Domain.csproj">
+      <Project>{F1792ED2-360F-4864-8A3D-3FAAE3E9FC4B}</Project>
+      <Name>WingsOn.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WingsOn.Services\WingsOn.Services.csproj">
+      <Project>{55B1C580-87F3-4401-8C82-C529F30830F2}</Project>
+      <Name>WingsOn.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WingsOnApi\WingsOnApi.csproj">
       <Project>{71BC9760-09EF-410F-994A-96B5B0D3371F}</Project>
       <Name>WingsOnApi</Name>

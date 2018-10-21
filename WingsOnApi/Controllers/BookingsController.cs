@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WingsOn.Domain;
@@ -8,8 +6,8 @@ using WingsOn.Services.Abstract;
 
 namespace WingsOnApi.Controllers
 {
-    [RoutePrefix("wingson/api/booking")]
-    public class BookingsController : ApiController
+    [RoutePrefix("wingson/api/bookings")]
+    public class BookingsController : BaseApiController
     {
         private readonly IBookingService _bookingService;
 
@@ -26,7 +24,7 @@ namespace WingsOnApi.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Content(HttpStatusCode.OK, _bookingService.GetAll(), new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _bookingService.GetAll());
         }
 
         /// <summary>
@@ -38,7 +36,7 @@ namespace WingsOnApi.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            return Content(HttpStatusCode.OK, _bookingService.Get(id), new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _bookingService.Get(id));
         }
 
         /// <summary>
@@ -50,8 +48,7 @@ namespace WingsOnApi.Controllers
         [Route("getpassengersinflight/{flightNumber}")]
         public IHttpActionResult GetPassengersInFlight(string flightNumber)
         {
-            return Content(HttpStatusCode.OK, _bookingService.GetPassengersInFlight(flightNumber),
-                new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _bookingService.GetPassengersInFlight(flightNumber));
         }
 
         /// <summary>
@@ -63,8 +60,7 @@ namespace WingsOnApi.Controllers
         [Route("getpassengerscountinflight/{flightNumber}")]
         public IHttpActionResult GetPassengerCountInFlight(string flightNumber)
         {
-            return Content(HttpStatusCode.OK, _bookingService.GetPassengersCountInFlight(flightNumber),
-                new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _bookingService.GetPassengersCountInFlight(flightNumber));
         }
         // POST api/<controller>
         public void Post([FromBody]string value)

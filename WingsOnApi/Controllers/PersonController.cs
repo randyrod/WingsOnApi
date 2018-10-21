@@ -10,7 +10,7 @@ using WingsOn.Services.Abstract;
 namespace WingsOnApi.Controllers
 {
     [RoutePrefix("wingson/api/person")]
-    public class PersonController : ApiController
+    public class PersonController : BaseApiController
     {
         private readonly IPersonService _personService;
 
@@ -27,7 +27,7 @@ namespace WingsOnApi.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Content(HttpStatusCode.OK, _personService.GetAll(), new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _personService.GetAll());
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace WingsOnApi.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            return Content(HttpStatusCode.OK, _personService.Get(id), new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _personService.Get(id));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace WingsOnApi.Controllers
         [HttpGet]
         public IHttpActionResult GetAllMale()
         {
-            return Content(HttpStatusCode.OK, _personService.GetAllMalePassengers(), new JsonMediaTypeFormatter());
+            return GetRequestResult(() => _personService.GetAllMalePassengers());
         }
 
         // POST api/<controller>

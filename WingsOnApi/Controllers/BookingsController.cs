@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WingsOn.Domain;
@@ -24,7 +26,7 @@ namespace WingsOnApi.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return GetRequestResult(() => _bookingService.GetAll());
+            return Content(HttpStatusCode.Forbidden, "You can't have everything in life, in this case bookings");
         }
 
         /// <summary>
@@ -36,6 +38,11 @@ namespace WingsOnApi.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
+            if ( id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            
             return GetRequestResult(() => _bookingService.Get(id));
         }
 
@@ -48,6 +55,11 @@ namespace WingsOnApi.Controllers
         [Route("getpassengersinflight/{flightNumber}")]
         public IHttpActionResult GetPassengersInFlight(string flightNumber)
         {
+            if (string.IsNullOrEmpty(flightNumber))
+            {
+                throw new ArgumentNullException();
+            }
+            
             return GetRequestResult(() => _bookingService.GetPassengersInFlight(flightNumber));
         }
 
@@ -60,21 +72,29 @@ namespace WingsOnApi.Controllers
         [Route("getpassengerscountinflight/{flightNumber}")]
         public IHttpActionResult GetPassengerCountInFlight(string flightNumber)
         {
+            if (string.IsNullOrEmpty(flightNumber))
+            {
+                throw new ArgumentNullException();
+            }
+            
             return GetRequestResult(() => _bookingService.GetPassengersCountInFlight(flightNumber));
         }
         // POST api/<controller>
         public void Post([FromBody]string value)
         {
+            throw new NotImplementedException();
         }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }

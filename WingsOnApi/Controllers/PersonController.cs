@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
-using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WingsOn.Domain;
@@ -27,7 +27,7 @@ namespace WingsOnApi.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return GetRequestResult(() => _personService.GetAll());
+            return Content(HttpStatusCode.Forbidden, "One person at a time please");
         }
 
         /// <summary>
@@ -39,6 +39,10 @@ namespace WingsOnApi.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
+            if (id <= -1)
+            {
+                throw new ArgumentException();
+            }
             return GetRequestResult(() => _personService.Get(id));
         }
 
@@ -57,16 +61,19 @@ namespace WingsOnApi.Controllers
         // POST api/<controller>
         public void Post([FromBody]string value)
         {
+            throw new NotImplementedException();
         }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }

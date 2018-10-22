@@ -18,8 +18,7 @@ namespace WingsOnApi.Controllers
 
                 if (EqualityComparer<T>.Default.Equals(response, default(T)))
                 {
-                    return Content(HttpStatusCode.NotFound, new StringContent("The requested element was not found"),
-                        new JsonMediaTypeFormatter());
+                    return NotFound();
                 }
                 
                 return Content(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());

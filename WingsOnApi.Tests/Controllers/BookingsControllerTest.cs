@@ -62,7 +62,43 @@ namespace WingsOnApi.Tests.Controllers
             Assert.IsNotNull(result);
             Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
         }
-        
+
+        [TestMethod]
+        public void GetFromNumber()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var getResponse = controller.Get("WO-291470");
+
+            Assert.IsNotNull(getResponse);
+            Assert.IsInstanceOfType(getResponse, typeof(FormattedContentResult<Booking>));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void GetFromNumberException()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var getResponse = controller.Get("");
+        }
+
+        [TestMethod]
+        public void GetNotFoundFromNumber()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var getResponse = controller.Get("WO-2914");
+
+            Assert.IsNotNull(getResponse);
+            Assert.IsInstanceOfType(getResponse, typeof(FormattedContentResult<string>));
+
+            var result = getResponse as FormattedContentResult<string>;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GetException()

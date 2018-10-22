@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WingsOn.Domain;
@@ -79,6 +80,25 @@ namespace WingsOnApi.Controllers
             
             return GetRequestResult(() => _bookingService.GetPassengersCountInFlight(flightNumber));
         }
+
+        /// <summary>
+        /// Get booking by booking number
+        /// </summary>
+        /// <param name="bookingNumber">Number of booking</param>
+        /// <returns>Booking</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        [ResponseType(typeof(Booking))]
+        [Route("{bookingNumber}")]
+        public IHttpActionResult Get(string bookingNumber)
+        {
+            if (string.IsNullOrEmpty(bookingNumber))
+            {
+                throw new ArgumentNullException();
+            }
+
+            return GetRequestResult(() => _bookingService.GetBookingByNumber(bookingNumber));
+        }
+
         // POST api/<controller>
         public void Post([FromBody]string value)
         {

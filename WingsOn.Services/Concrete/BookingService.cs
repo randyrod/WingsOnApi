@@ -28,6 +28,11 @@ namespace WingsOn.Services.Concrete
             return passengers;
         }
 
+        public Booking GetBookingByNumber(string bookingNumber)
+        {
+            return GetAll().SingleOrDefault(b => b.Number == bookingNumber);
+        }
+
         public int GetPassengersCountInFlight(string flightNumber)
         {
             return GetPassengersInFlight(flightNumber).Count();

@@ -7,6 +7,8 @@ namespace WingsOn.Services.Abstract
     {
         IEnumerable<Person> GetPassengersInFlight(string flightNumber);
 
+        Booking GetBookingByNumber(string bookingNumber);
+
         int GetPassengersCountInFlight(string flightNumber);
     }
 }

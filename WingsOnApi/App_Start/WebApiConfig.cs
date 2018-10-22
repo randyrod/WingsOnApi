@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using WingsOnApi.Attributes.ExceptionHandling;
+using WingsOnApi.Attributes.Filters;
 
 namespace WingsOnApi
 {
@@ -19,6 +19,9 @@ namespace WingsOnApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            
+            config.Filters.Add(new LoggingFilterAttribute());
+            config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
         }
     }
 }

@@ -201,6 +201,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Attributes\ExceptionHandling\GlobalExceptionHandler.cs" />
+    <Compile Include="Attributes\Filters\LoggingFilterAttribute.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

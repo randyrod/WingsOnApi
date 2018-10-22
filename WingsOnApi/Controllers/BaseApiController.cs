@@ -18,7 +18,9 @@ namespace WingsOnApi.Controllers
 
                 if (EqualityComparer<T>.Default.Equals(response, default(T)))
                 {
-                    return NotFound();
+                    return Content(HttpStatusCode.NotFound,
+                        "We couldn't find anything on our side..Oops",
+                        new JsonMediaTypeFormatter());
                 }
                 
                 return Content(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());

@@ -53,9 +53,14 @@ namespace WingsOnApi.Tests.Controllers
             var controller = new BookingsController(_bookingService);
 
             var getResponse = controller.Get(1000);
-            
+
             Assert.IsNotNull(getResponse);
-            Assert.IsInstanceOfType(getResponse, typeof(NotFoundResult));
+            Assert.IsInstanceOfType(getResponse, typeof(FormattedContentResult<string>));
+
+            var result = getResponse as FormattedContentResult<string>;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
         }
         
         [TestMethod]

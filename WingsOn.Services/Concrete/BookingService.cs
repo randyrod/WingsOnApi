@@ -27,7 +27,7 @@ namespace WingsOn.Services.Concrete
                 passengers.AddRange(booking.Passengers);
             });
 
-            return passengers;
+            return passengers.Any() ? passengers : null;
         }
 
         public Booking GetBookingByNumber(string bookingNumber)

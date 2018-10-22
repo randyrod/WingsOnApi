@@ -16,6 +16,11 @@ namespace WingsOn.Services.Concrete
 
         public IEnumerable<Person> GetAll() => WingsOnDbContext.PersonRepository.GetAll();
 
-        public IEnumerable<Person> GetAllMalePassengers() => GetAll().Where(p => p.Gender == GenderType.Male);
+        public IEnumerable<Person> GetAllMalePassengers()
+        {
+            var malePassengers = GetAll().Where(p => p.Gender == GenderType.Male).ToArray();
+
+            return malePassengers.Any() ? malePassengers : null;
+        }
     }
 }

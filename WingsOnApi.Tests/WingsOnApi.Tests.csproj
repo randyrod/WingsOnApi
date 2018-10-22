@@ -105,7 +105,6 @@
     <Compile Include="Controllers\PersonControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
     <Compile Include="TestUtils\NinjectHelper.cs" />
   </ItemGroup>
   <ItemGroup>

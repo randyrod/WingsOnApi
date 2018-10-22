@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WingsOn.Domain;
@@ -29,6 +31,15 @@ namespace WingsOnApi.Tests.Controllers
             Assert.IsInstanceOfType(getResponse, typeof(FormattedContentResult<Person>));
    
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetException()
+        {
+            var controller = new PersonController(_personService);
+
+            var getResponse = controller.Get(-1);
+        }
         
         [TestMethod]
         public void GetAll()
@@ -38,7 +49,12 @@ namespace WingsOnApi.Tests.Controllers
             var getAllResponse = controller.Get();
             
             Assert.IsNotNull(getAllResponse);
-            Assert.IsInstanceOfType(getAllResponse, typeof(FormattedContentResult<IEnumerable<Person>>));
+            Assert.IsInstanceOfType(getAllResponse, typeof(NegotiatedContentResult<string>));
+
+            var result = getAllResponse as NegotiatedContentResult<string>;
+            
+            Assert.IsNotNull(result);
+            Assert.AreEqual(HttpStatusCode.Forbidden, result.StatusCode);
         }
 
         [TestMethod]
@@ -51,5 +67,45 @@ namespace WingsOnApi.Tests.Controllers
             Assert.IsNotNull(maleResponse);
             Assert.IsInstanceOfType(maleResponse, typeof(FormattedContentResult<IEnumerable<Person>>));
         }
+        
+        [TestMethod]
+        public void GetNotFound()
+        {
+            var controller = new PersonController(_personService);
+
+            var getResponse = controller.Get(1000);
+
+            Assert.IsNotNull(getResponse);
+            Assert.IsInstanceOfType(getResponse, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Post()
+        {
+            var controller = new PersonController(_personService);
+            
+            controller.Post("Test");
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Put()
+        {
+            var controller = new PersonController(_personService);
+            
+            controller.Put(0, "Test");
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Delete()
+        {
+            var controller = new PersonController(_personService);
+            
+            controller.Delete(0);
+        }
+        
+        
     }
 }

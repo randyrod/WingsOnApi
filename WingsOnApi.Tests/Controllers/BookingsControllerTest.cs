@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WingsOn.Domain;
@@ -24,9 +26,14 @@ namespace WingsOnApi.Tests.Controllers
             var controller = new BookingsController(_bookingService);
 
             var getAllResponse = controller.Get();
-            
+
             Assert.IsNotNull(getAllResponse);
-            Assert.IsInstanceOfType(getAllResponse, typeof(FormattedContentResult<IEnumerable<Booking>>));
+            Assert.IsInstanceOfType(getAllResponse, typeof(NegotiatedContentResult<string>));
+
+            var result = getAllResponse as NegotiatedContentResult<string>;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(HttpStatusCode.Forbidden, result.StatusCode);
         }
         
         [TestMethod]
@@ -39,6 +46,26 @@ namespace WingsOnApi.Tests.Controllers
             Assert.IsNotNull(getAllResponse);
             Assert.IsInstanceOfType(getAllResponse, typeof(FormattedContentResult<Booking>));
         }
+        
+        [TestMethod]
+        public void GetNotFound()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var getResponse = controller.Get(1000);
+            
+            Assert.IsNotNull(getResponse);
+            Assert.IsInstanceOfType(getResponse, typeof(NotFoundResult));
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetException()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var getResponse = controller.Get(-1);
+        }
 
         [TestMethod]
         public void GetPassengersInFlight()
@@ -49,6 +76,51 @@ namespace WingsOnApi.Tests.Controllers
             
             Assert.IsNotNull(passengersInFlight);
             Assert.IsInstanceOfType(passengersInFlight, typeof(FormattedContentResult<IEnumerable<Person>>));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void GetPassengersInFlightException()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var passengersInFlight = controller.GetPassengersInFlight("");
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void GetPassengerCountInFlight()
+        {
+            var controller = new BookingsController(_bookingService);
+
+            var passengersInFlight = controller.GetPassengersInFlight("");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Post()
+        {
+            var controller = new BookingsController(_bookingService);
+            
+            controller.Post("Test");
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Put()
+        {
+            var controller = new BookingsController(_bookingService);
+            
+            controller.Put(0, "Test");
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Delete()
+        {
+            var controller = new BookingsController(_bookingService);
+            
+            controller.Delete(0);
         }
         
     }

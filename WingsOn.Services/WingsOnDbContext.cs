@@ -4,11 +4,11 @@ namespace WingsOn.Services
 {
     public class WingsOnDbContext
     {
-        public AirlineRepository AirlineRepository;
-        public AirportRepository AirportRepository;
-        public BookingRepository BookingRepository;
-        public FlightRepository FlightRepository;
-        public PersonRepository PersonRepository;
+        public readonly AirlineRepository AirlineRepository;
+        public readonly AirportRepository AirportRepository;
+        public readonly BookingRepository BookingRepository;
+        public readonly FlightRepository FlightRepository;
+        public readonly PersonRepository PersonRepository;
 
         public WingsOnDbContext()
         {
@@ -17,6 +17,7 @@ namespace WingsOn.Services
             BookingRepository = new BookingRepository();
             FlightRepository = new FlightRepository();
             PersonRepository = new PersonRepository();
+            AirlineRepository = new AirlineRepository();
         }
     }
 }

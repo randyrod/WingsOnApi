@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http.Headers;
+using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using WingsOnApi.Attributes.ExceptionHandling;
 using WingsOnApi.Attributes.Filters;
@@ -22,6 +23,8 @@ namespace WingsOnApi
             
             config.Filters.Add(new LoggingFilterAttribute());
             config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
+            
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
     }
 }

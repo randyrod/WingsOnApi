@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WingsOn.Domain;
@@ -62,24 +63,7 @@ namespace WingsOnApi.Controllers
             
             return GetRequestResult(() => _bookingService.GetPassengersInFlight(flightNumber));
         }
-
-        /// <summary>
-        /// Get passengers in a flight
-        /// </summary>
-        /// <param name="flightNumber">Number of flight</param>
-        /// <returns>List of passengers</returns>
-        [ResponseType(typeof(int))]
-        [Route("getpassengerscountinflight/{flightNumber}")]
-        public IHttpActionResult GetPassengerCountInFlight(string flightNumber)
-        {
-            if (string.IsNullOrEmpty(flightNumber))
-            {
-                throw new ArgumentNullException();
-            }
-            
-            return GetRequestResult(() => _bookingService.GetPassengersCountInFlight(flightNumber));
-        }
-
+        
         /// <summary>
         /// Get booking by booking number
         /// </summary>
@@ -96,6 +80,23 @@ namespace WingsOnApi.Controllers
             }
 
             return GetRequestResult(() => _bookingService.GetBookingByNumber(bookingNumber));
+        }
+
+        /// <summary>
+        /// Get passengers in a flight
+        /// </summary>
+        /// <param name="flightNumber">Number of flight</param>
+        /// <returns>List of passengers</returns>
+        [ResponseType(typeof(int))]
+        [Route("getpassengerscountinflight/{flightNumber}")]
+        public IHttpActionResult GetPassengerCountInFlight(string flightNumber)
+        {
+            if (string.IsNullOrEmpty(flightNumber))
+            {
+                throw new ArgumentNullException();
+            }
+            
+            return GetRequestResult(() => _bookingService.GetPassengersCountInFlight(flightNumber));
         }
 
         // POST api/<controller>

@@ -10,7 +10,7 @@ namespace WingsOnApi.Controllers
 {
     public class BaseApiController : ApiController
     {
-        protected IHttpActionResult GetRequestResult<T>(Func<T> action, [CallerMemberName] string methodName = null)
+        protected IHttpActionResult GetRequestResult<T>(Func<T> action)
         {
             try
             {

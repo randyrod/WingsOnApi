@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WingsOn.Domain;
 using WingsOn.Services.Abstract;
@@ -20,7 +21,8 @@ namespace WingsOn.Services.Concrete
         {
             var passengers = new List<Person>();
 
-            GetAll().Where(b => b.Flight.Number == flightNumber).ToList().ForEach(booking =>
+            GetAll().Where(b => string.Equals(b.Flight.Number, flightNumber, StringComparison.CurrentCultureIgnoreCase))
+                .ToList().ForEach(booking =>
             {
                 passengers.AddRange(booking.Passengers);
             });
@@ -30,7 +32,7 @@ namespace WingsOn.Services.Concrete
 
         public Booking GetBookingByNumber(string bookingNumber)
         {
-            return GetAll().SingleOrDefault(b => b.Number == bookingNumber);
+            return GetAll().SingleOrDefault(b => string.Equals(b.Number, bookingNumber, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public int GetPassengersCountInFlight(string flightNumber)

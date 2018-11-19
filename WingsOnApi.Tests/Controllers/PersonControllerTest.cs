@@ -58,11 +58,11 @@ namespace WingsOnApi.Tests.Controllers
         }
 
         [TestMethod]
-        public void TestAllMale()
+        public void TestGetPassengersByGender()
         {
             var controller = new PersonController(_personService);
 
-            var maleResponse = controller.GetAllMale();
+            var maleResponse = controller.GetPeopleByGender(GenderType.Male);
             
             Assert.IsNotNull(maleResponse);
             Assert.IsInstanceOfType(maleResponse, typeof(FormattedContentResult<IEnumerable<Person>>));

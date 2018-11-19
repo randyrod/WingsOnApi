@@ -51,11 +51,11 @@ namespace WingsOnApi.Controllers
         /// </summary>
         /// <returns>List of male people</returns>
         [ResponseType(typeof(IEnumerable<Person>))]
-        [Route("getmales")]
+        [Route("getpeoplebygender/{genderType}")]
         [HttpGet]
-        public IHttpActionResult GetAllMale()
+        public IHttpActionResult GetPeopleByGender(GenderType genderType)
         {
-            return GetRequestResult(() => _personService.GetAllMalePassengers());
+            return GetRequestResult(() => _personService.GetPeopleByGender(genderType));
         }
 
         // POST api/<controller>

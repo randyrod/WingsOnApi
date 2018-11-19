@@ -24,11 +24,16 @@ namespace WingsOn.Services.Concrete
 
         public IEnumerable<Person> GetAll() => WingsOnDbContext.PersonRepository.GetAll();
 
-        public IEnumerable<Person> GetAllMalePassengers()
+        public IEnumerable<Person> GetPeopleByGender(GenderType gender)
         {
-            var malePassengers = GetAll().Where(p => p.Gender == GenderType.Male).ToArray();
+            var passengers = GetAll().Where(p => p.Gender == gender).ToArray();
 
-            return malePassengers.Any() ? malePassengers : null;
+            if (passengers.Any())
+            {
+                return passengers;
+            }
+            
+            throw new ElementNotFoundException($"There were no passengers of gender: {gender.ToString()} found");
         }
     }
 }

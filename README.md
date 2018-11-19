@@ -176,5 +176,8 @@ WebApi built on ASP.Net to expose basic Booking service endpoints
   - Url: wingson/api/bookings/getpassengerscountinflight/{flightNumber}
   - Example output:
   ```
-  5
+  {
+    "FlightNumber": "PZ696",
+    "PassengerAmount": 5
+  }
   ```

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WingsOn.Domain;
+using WingsOn.Domain.ViewModels;
 
 namespace WingsOn.Services.Abstract
 {
@@ -9,6 +10,6 @@ namespace WingsOn.Services.Abstract
 
         Booking GetBookingByNumber(string bookingNumber);
 
-        int GetPassengersCountInFlight(string flightNumber);
+        PassengersInFlightViewModel GetPassengersCountInFlight(string flightNumber);
     }
 }

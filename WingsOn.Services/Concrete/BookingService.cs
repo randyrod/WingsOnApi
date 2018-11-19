@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using WingsOn.Domain;
+using WingsOn.Domain.ViewModels;
 using WingsOn.Services.Abstract;
+using WingsOn.Services.CustomExceptions;
 
 namespace WingsOn.Services.Concrete
 {
@@ -13,7 +15,17 @@ namespace WingsOn.Services.Concrete
             WingsOnDbContext = new WingsOnDbContext();
         }
 
-        public Booking Get(int id) => WingsOnDbContext.BookingRepository.Get(id);
+        public Booking Get(int id)
+        {
+            var booking =  WingsOnDbContext.BookingRepository.Get(id);
+
+            if (booking != null)
+            {
+                return booking;
+            }
+            
+            throw new ElementNotFoundException($"There was no booking found with id: {id}");
+        }
 
         public IEnumerable<Booking> GetAll() => WingsOnDbContext.BookingRepository.GetAll();
 
@@ -35,9 +47,20 @@ namespace WingsOn.Services.Concrete
             return GetAll().SingleOrDefault(b => string.Equals(b.Number, bookingNumber, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public int GetPassengersCountInFlight(string flightNumber)
+        public PassengersInFlightViewModel GetPassengersCountInFlight(string flightNumber)
         {
-            return GetPassengersInFlight(flightNumber).Count();
+            var passengersInFlight = GetPassengersInFlight(flightNumber);
+
+            if (passengersInFlight != null)
+            {
+                return new PassengersInFlightViewModel
+                {
+                    FlightNumber = flightNumber,
+                    PassengerAmount = passengersInFlight.Count()
+                };
+            }
+            
+            throw new ElementNotFoundException($"No flight with the number: {flightNumber} was found");
         }
     }
 }

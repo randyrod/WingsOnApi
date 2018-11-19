@@ -46,6 +46,7 @@
     <Compile Include="Concrete\BookingService.cs" />
     <Compile Include="Concrete\PersonService.cs" />
     <Compile Include="Concrete\ServiceBase.cs" />
+    <Compile Include="CustomExceptions\ElementNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WingsOnDbContext.cs" />
   </ItemGroup>

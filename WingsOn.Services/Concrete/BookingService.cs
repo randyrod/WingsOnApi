@@ -33,34 +33,47 @@ namespace WingsOn.Services.Concrete
         {
             var passengers = new List<Person>();
 
-            GetAll().Where(b => string.Equals(b.Flight.Number, flightNumber, StringComparison.CurrentCultureIgnoreCase))
-                .ToList().ForEach(booking =>
+            var bookings = GetAll().Where(b => string.Equals(b.Flight.Number, flightNumber, StringComparison.CurrentCultureIgnoreCase)).ToArray();
+
+            if (!bookings.Any())
+            {
+                throw new ElementNotFoundException($"There was no flight found with number: {flightNumber}");
+            }
+            
+            foreach (var booking in bookings)
             {
                 passengers.AddRange(booking.Passengers);
-            });
+            }
 
-            return passengers.Any() ? passengers : null;
+            if (passengers.Any())
+            {
+                return passengers;
+            }
+            
+            throw new ElementNotFoundException($"There were no passengers found for flight number: {flightNumber}");
         }
 
         public Booking GetBookingByNumber(string bookingNumber)
         {
-            return GetAll().SingleOrDefault(b => string.Equals(b.Number, bookingNumber, StringComparison.CurrentCultureIgnoreCase));
+            var booking = GetAll().SingleOrDefault(b => string.Equals(b.Number, bookingNumber, StringComparison.CurrentCultureIgnoreCase));
+
+            if (booking != null)
+            {
+                return booking;
+            }
+            
+            throw new ElementNotFoundException($"There was no booking found with the number: {bookingNumber}");
         }
 
         public PassengersInFlightViewModel GetPassengersCountInFlight(string flightNumber)
         {
             var passengersInFlight = GetPassengersInFlight(flightNumber);
 
-            if (passengersInFlight != null)
+            return new PassengersInFlightViewModel
             {
-                return new PassengersInFlightViewModel
-                {
-                    FlightNumber = flightNumber,
-                    PassengerAmount = passengersInFlight.Count()
-                };
-            }
-            
-            throw new ElementNotFoundException($"No flight with the number: {flightNumber} was found");
+                FlightNumber = flightNumber,
+                PassengerAmount = passengersInFlight.Count()
+            };
         }
     }
 }

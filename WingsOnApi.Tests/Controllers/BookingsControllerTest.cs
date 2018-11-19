@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WingsOn.Domain;
+using WingsOn.Domain.ViewModels;
 using WingsOn.Services.Abstract;
 using WingsOnApi.Controllers;
 using WingsOnApi.Tests.TestUtils;
@@ -134,7 +135,10 @@ namespace WingsOnApi.Tests.Controllers
         {
             var controller = new BookingsController(_bookingService);
 
-            var passengersInFlight = controller.GetPassengersInFlight("");
+            var passengersInFlight = controller.GetPassengerCountInFlight("PZ696");
+            
+            Assert.IsNotNull(passengersInFlight);
+            Assert.IsInstanceOfType(passengersInFlight, typeof(FormattedContentResult<PassengersInFlightViewModel>));
         }
 
         [TestMethod]

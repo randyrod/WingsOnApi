@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Runtime.CompilerServices;
 using System.Web.Http;
+using WingsOn.Services.CustomExceptions;
+using WingsOnApi.Attributes;
+using WingsOnApi.Models;
 
 namespace WingsOnApi.Controllers
 {
     public class BaseApiController : ApiController
     {
-        protected IHttpActionResult GetRequestResult<T>(Func<T> action)
+        protected IHttpActionResult GetRequestResult<T>(Func<T> action) where T : class
         {
             try
             {
@@ -18,17 +18,20 @@ namespace WingsOnApi.Controllers
 
                 if (EqualityComparer<T>.Default.Equals(response, default(T)))
                 {
-                    return Content(HttpStatusCode.NotFound,
-                        "We couldn't find anything on our side..Oops",
-                        new JsonMediaTypeFormatter());
+                    return new CustomError(Request, HttpStatusCode.NotFound,
+                        "The requested element could not be found in the records.");
+                    ;
                 }
-                
-                return Content(HttpStatusCode.OK, response, new JsonMediaTypeFormatter());
+
+                return new CustomResponse<T>(Request, response);
+            }
+            catch (ElementNotFoundException ex)
+            {
+                return new CustomError(Request, HttpStatusCode.NotFound, ex);
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, new StringContent("An unknown error ocurred"),
-                    new JsonMediaTypeFormatter());
+                return new CustomError(Request, HttpStatusCode.InternalServerError, e);
             }
         }
     }

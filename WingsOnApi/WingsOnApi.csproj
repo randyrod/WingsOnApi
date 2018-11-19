@@ -201,7 +201,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Attributes\CustomError.cs" />
     <Compile Include="Attributes\ExceptionHandling\GlobalExceptionHandler.cs" />
     <Compile Include="Attributes\Filters\LoggingFilterAttribute.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
@@ -211,6 +210,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomError.cs" />
+    <Compile Include="Models\CustomResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

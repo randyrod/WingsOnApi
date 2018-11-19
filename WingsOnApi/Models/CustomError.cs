@@ -1,10 +1,11 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace WingsOnApi.Attributes
+namespace WingsOnApi.Models
 {
     public class CustomError : IHttpActionResult
     {
@@ -15,6 +16,13 @@ namespace WingsOnApi.Attributes
         public CustomError(HttpRequestMessage requestMessage, HttpStatusCode statusCode, string errorMessage)
         {
             _errorMessage = errorMessage;
+            _requestMessage = requestMessage;
+            _statusCode = statusCode;
+        }
+
+        public CustomError(HttpRequestMessage requestMessage, HttpStatusCode statusCode, Exception exception)
+        {
+            _errorMessage = exception.Message;
             _requestMessage = requestMessage;
             _statusCode = statusCode;
         }

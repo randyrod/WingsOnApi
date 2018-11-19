@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using WingsOnApi.Models;
 
 namespace WingsOnApi.Attributes.ExceptionHandling
 {
